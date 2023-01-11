@@ -1,0 +1,6 @@
+Flask
+python-dotenv
+rich>=11.2.0
+requests
+gunicorn  # Neccesary for app.yaml
+pydantic # Neccesary for config.py
