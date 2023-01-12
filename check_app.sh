@@ -12,7 +12,7 @@ flake8 ./falken_teleworking/* --count --exit-zero --max-complexity=10 --max-line
 echo "***** Unit Test *****"
 coverage run -m pytest -v -s
 echo "***** Coverage tests *****"
-coverage report --omit="*/tests/*,*/venv/*" -m ./falken_food/*.py 
+coverage report --omit="*/tests/*,*/venv/*" -m ./falken_teleworking/*.py 
 
 # Coverage report in html
 # coverage run -m pytest -v && coverage html --omit="*/test/*,*/venv/*"
