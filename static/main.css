@@ -19,6 +19,7 @@
 
 .aboutPageText {
     text-align: center;
+    align-content: center;
     color: white;
     font-family: Monospace, Arial, Helvetica, sans-serif;
     font-size: 150%;
@@ -36,12 +37,12 @@
 }
 
 .aboutPageLayer {
-    padding-top: 20%;
+    padding-top: 15%;
     align-content: center;
     background-color: black;
     height: 100%;
     width: 100%;
-    opacity: 0.50;
+    opacity: 0.65;
 }
 
 .contactPage {
@@ -134,9 +135,9 @@ a:visited {
     text-align: left;
 }
 
-.weatherData {
+.appData {
     color: black !important;
-    font-size: 60%;
+    font-size: 30%;
     text-align: left;
 }
 
@@ -190,5 +191,9 @@ a:visited {
  }
 
  .iconData {
-     width: 40%;
- }
+    width: 25%;
+}
+
+.iconSmall {
+    width: 60%;
+}
