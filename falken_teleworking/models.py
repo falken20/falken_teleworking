@@ -6,7 +6,7 @@
 # ######################################################################
 
 
-import datetime
+from datetime import datetime
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
@@ -14,6 +14,7 @@ from dotenv import load_dotenv, find_dotenv
 
 # from src.logger import Log
 import logging
+from .logger import Log
 
 FORMAT = '%(asctime)s %(levelname)s %(lineno)d %(filename)s %(funcName)s: %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
@@ -33,7 +34,7 @@ class Teleworking(db.Model):
     work_home = db.Column(db.Boolean)
 
     def __repr__(self) -> str:
-        return f"ID: {self.product_id} / Product: {self.product_desc} / URL: {self.product_url} / Price: {self.product_price}"
+        return f"Day: {self.work_date} / Work Home: {self.work_home}"
 
     @staticmethod
     def get_all_days():
@@ -54,11 +55,17 @@ class Teleworking(db.Model):
 
     @staticmethod
     def create_day(values):
+        Log.info("Saving info day in DB...")
+        # Delete the day if exists
+        Teleworking.delete_day(datetime.now().date())
+
         new_teleworking = Teleworking(
-            work_date=datetime.datetime.now(),
-            work_home=values.get(
-                'work_home') if values.get('work_home') else "false",
+            work_date = datetime.now().date(),
+            work_home = True if values.get('work_home') == "True" else False,
         )
+        
+        print("***************", new_teleworking, values.get('work_home'))
+
         db.session.add(new_teleworking)
         db.session.commit()
 

@@ -23,23 +23,25 @@
     <div class="section aboutPage">
         <div class="aboutPageLayer">
             <div class="aboutPageText">
-                <table class="table table-danger table-striped appData" style="width: 50%">
+                <table class="table table-danger table-striped appData" style="width: 80%">
                     <thead>
                         <tr style="height: 60px;">
-                            <th scope="col" style="width: 50%">{{ day }}</th>
-                            <th scope="col" style="width: 25%">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                    <label class="form-check-label" for="inlineRadio1"><img src="/static/assets/home.png" class="iconSmall"></label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                    <label class="form-check-label" for="inlineRadio2"><img src="/static/assets/office.png" class="iconSmall"></label>
-                                </div>                         
-                            </th>
-                            <th scope="col" style="width: 25%">
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </th>
+                            <form method="POST">
+                                <th scope="col" style="width: 50%">{{ day }}</th>
+                                <th scope="col" style="width: 25%">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork1" value="True">
+                                        <label class="form-check-label" for="placeWork1"><img src="/static/assets/home.png" class="iconSmall"></label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork2" value="False">
+                                        <label class="form-check-label" for="placeWork2"><img src="/static/assets/office.png" class="iconSmall"></label>
+                                    </div>                         
+                                </th>
+                                <th scope="col" style="width: 25%">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+                                </th>
+                            </form>
                         </tr>
                     </thead>
                     <tbody>
