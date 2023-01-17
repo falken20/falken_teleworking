@@ -23,40 +23,42 @@
     <div class="section aboutPage">
         <div class="aboutPageLayer">
             <div class="aboutPageText">
-                <table class="table table-danger table-striped appData" style="width: 80%">
+                <table class="table table-danger table-striped" style="width: 80%">
                     <thead>
                         <tr style="height: 60px;">
-                            <form method="POST">
-                                <th scope="col" style="width: 50%">{{ day }}</th>
-                                <th scope="col" style="width: 25%">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork1" value="True">
-                                        <label class="form-check-label" for="placeWork1"><img src="/static/assets/home.png" class="iconSmall"></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork2" value="False">
-                                        <label class="form-check-label" for="placeWork2"><img src="/static/assets/office.png" class="iconSmall"></label>
-                                    </div>                         
-                                </th>
-                                <th scope="col" style="width: 25%">
-                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-                                </th>
-                            </form>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row"><img src="/static/assets/home.png" class="iconData"></th>
-                            <td title="Home days" colspan="2">{{ count_home }}</td>
+                            <td title="Home days" colspan="2" class="appData">{{ count_home }}</td>
                         </tr>
                         <tr>
                             <th scope="row"><img src="/static/assets/office.png" class="iconData"></th>
-                            <td title="Office days" colspan="2">{{ count_office }}</td>
+                            <td title="Office days" colspan="2" class="appData">{{ count_office }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Office %</th>
-                            <td title="Current Rate" colspan="2">{{ percent }}%</td>
+                            <td title="Current Rate" colspan="2" class="appData">{{ percent }}%</td>
                         </tr>
+                        <tr style="height: 100px;">
+                            <form method="POST">
+                                <th scope="col" style="width: 50%;">{{ day }}</th>
+                                <th scope="col" style="width: 25%; text-align: left !important;">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork1" value="True">
+                                        <label class="form-check-label" for="placeWork1">Home</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork2" value="False">
+                                        <label class="form-check-label" for="placeWork2">Office</label>
+                                    </div>                         
+                                </th>
+                                <th scope="col" style="width: 25%; height: 300px !important;">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" style="font-size: 100% !important;">Save</button>
+                                </th>
+                            </form>
+                        </tr>                        
                    </tbody>
                   </table>
 

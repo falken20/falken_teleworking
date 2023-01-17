@@ -38,7 +38,7 @@ def home():
 
     count_home = Teleworking.get_count_days("true")
     count_office = Teleworking.get_count_days("false")
-    percent = count_office / (count_home + count_office) * 100
+    percent = round(count_office / (count_home + count_office) * 100, 2)
 
     return render_template("index.html",
                            day=datetime.now().date(),
