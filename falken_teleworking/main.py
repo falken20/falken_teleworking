@@ -40,11 +40,20 @@ def home():
     count_office = Teleworking.get_count_days("false")
     percent = round(count_office / (count_home + count_office) * 100, 2)
 
+    checked_home, checked_office= None, None
+    if Teleworking.get_day(datetime.now().date()):
+        if (Teleworking.get_day(datetime.now().date())).work_home:
+            checked_home = "checked"
+        else:
+            checked_office = "checked"
+
     return render_template("index.html",
                            day=datetime.now().date(),
                            count_home=count_home,
                            count_office=count_office,
-                           percent=percent)
+                           percent=percent,
+                           checked_home=checked_home,
+                           checked_office=checked_office)
 
 
 if __name__ == "__main__":

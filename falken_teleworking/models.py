@@ -64,8 +64,6 @@ class Teleworking(db.Model):
             work_home = True if values.get('work_home') == "True" else False,
         )
         
-        print("***************", new_teleworking, values.get('work_home'))
-
         db.session.add(new_teleworking)
         db.session.commit()
 

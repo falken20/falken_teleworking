@@ -41,25 +41,27 @@
                             <th scope="row">Office %</th>
                             <td title="Current Rate" colspan="2" class="appData">{{ percent }}%</td>
                         </tr>
-                        <tr style="height: 100px;">
-                            <form method="POST">
-                                <th scope="col" style="width: 50%;">{{ day }}</th>
+                        <form method="POST">
+                            <tr style="height: 100px;">
+                                <td scope="col" style="width: 50%; color: red !important; font-size: 100px !important;" colspan="2">{{ day }}</td>
+                            </tr>  
+                            <tr>
                                 <th scope="col" style="width: 25%; text-align: left !important;">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork1" value="True">
+                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork1" value="True" {{ checked_home }}>
                                         <label class="form-check-label" for="placeWork1">Home</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork2" value="False">
+                                        <input class="form-check-input" type="radio" name="work_home" id="placeWork2" value="False" {{ checked_office }}>
                                         <label class="form-check-label" for="placeWork2">Office</label>
                                     </div>                         
                                 </th>
                                 <th scope="col" style="width: 25%; height: 300px !important;">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block" style="font-size: 100% !important;">Save</button>
                                 </th>
-                            </form>
-                        </tr>                        
-                   </tbody>
+                            </tr>                      
+                        </form>
+                    </tbody>
                   </table>
 
 
