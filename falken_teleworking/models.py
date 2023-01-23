@@ -38,7 +38,7 @@ class Teleworking(db.Model):
 
     @staticmethod
     def get_all_days():
-        return Teleworking.query.order_by(Teleworking.product_date_updated.desc(), Teleworking.product_id).all()
+        return Teleworking.query.order_by(Teleworking.work_date.desc()).all()
 
     @staticmethod
     def get_count_days(work_home):
@@ -60,10 +60,10 @@ class Teleworking(db.Model):
         Teleworking.delete_day(datetime.now().date())
 
         new_teleworking = Teleworking(
-            work_date = datetime.now().date(),
-            work_home = True if values.get('work_home') == "True" else False,
+            work_date=datetime.now().date(),
+            work_home=True if values.get('work_home') == "True" else False,
         )
-        
+
         db.session.add(new_teleworking)
         db.session.commit()
 

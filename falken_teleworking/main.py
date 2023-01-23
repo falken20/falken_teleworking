@@ -32,7 +32,7 @@ db.init_app(app)
 def home():
     Log.info("Access to home page")
 
-    if request.method == "POST" and request.form.get('work_home') != None:
+    if request.method == "POST" and request.form.get('work_home') is not None:
         Log.info("Saving the day info...")
         Teleworking.create_day(request.form)
 
@@ -40,7 +40,7 @@ def home():
     count_office = Teleworking.get_count_days("false")
     percent = round(count_office / (count_home + count_office) * 100, 2)
 
-    checked_home, checked_office= None, None
+    checked_home, checked_office = None, None
     if Teleworking.get_day(datetime.now().date()):
         if (Teleworking.get_day(datetime.now().date())).work_home:
             checked_home = "checked"
