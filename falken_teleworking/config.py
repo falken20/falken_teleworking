@@ -18,6 +18,7 @@ class Settings(BaseSettings):
         # When you add the Config class with the path to your env_file to your
         # settings, pydantic loads your environment variables from the .env file.
         env_file = ".env"
+        env_file_encoding = 'utf-8'
 
 
 @lru_cache
