@@ -1,9 +1,14 @@
 import unittest
 from flask import Flask
+from datetime import datetime
+from unittest.mock import patch
+from io import StringIO
 
-from falken_teleworking.models import db, Teleworking
+from falken_teleworking.models import db, Teleworking, init_db
 
-TEST_ROW = {"work_day": "01/01/2023", "work_home": "True"}
+TEST_DATE = datetime.now().date()
+TEST_ROW = {"work_day": TEST_DATE, "work_home": "True"}
+
 
 class TestModels(unittest.TestCase):
 
@@ -43,5 +48,26 @@ class TestModels(unittest.TestCase):
 
     def test_get_count_days(self):
         Teleworking.create_day(TEST_ROW)
-        print(TEST_ROW.get("work_day"))
-        self.assertEqual(1, Teleworking.get_count_days(TEST_ROW.get("work_day")))
+        self.assertEqual(1, Teleworking.get_count_days(True))
+
+    @patch('sys.stdin', StringIO('N\nN\n'))  # Simulate user input
+    def test_init_db(self):
+        app = Flask(__name__)
+        app.config["TESTING"] = True
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite://"
+        init_db(app)
+
+    @patch('sys.stdin', StringIO('y\ny\n'))  # Simulate user input
+    def test_init_db_with_drop(self):
+        app = Flask(__name__)
+        app.config["TESTING"] = True
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite://"
+        init_db(app)
+    
+    @patch('sys.stdin', StringIO('N\nY\n'))  # Simulate user input
+    def test_init_db_with_create(self):
+        app = Flask(__name__)
+        app.config["TESTING"] = True
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite://"
+        init_db(app)
+

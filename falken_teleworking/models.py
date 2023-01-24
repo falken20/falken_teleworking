@@ -42,6 +42,7 @@ class Teleworking(db.Model):
 
     @staticmethod
     def get_count_days(work_home):
+        """ Return count days working at home (true) or office (false) """
         return len(Teleworking.query.filter_by(work_home=work_home).all())
 
     @staticmethod
