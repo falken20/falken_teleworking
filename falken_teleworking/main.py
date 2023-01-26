@@ -1,6 +1,7 @@
 # by Richi Rod AKA @richionline / falken20
 # ./falken_quotes/main.py
 
+from .auth import auth as auth_blueprint
 from flask import Flask, render_template, request
 from dotenv import load_dotenv, find_dotenv
 import os
@@ -25,6 +26,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'].replace(
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db.init_app(app)
+
+# Register blueprint for auth features
+app.register_blueprint(auth_blueprint)
 
 
 @app.route("/", methods=('GET', 'POST'))

@@ -17,6 +17,9 @@
 
 <body>
     <ul class="nav nav-pills">
+        <li><a class="aboutStyle" href="{{ url_for('auth.login') }}">Login</a></li>
+        <li><a class="aboutStyle" href="{{ url_for('auth.signup') }}">Sign up</a></li>
+        <li><a class="aboutStyle" href="{{ url_for('auth.logout') }}">Logout</a></li>
         <li class="active"><a class="aboutStyle" href="/#about">Falken Teleworking <img src="/static/assets/logo_app.ico" height="50"></a></li>
     </ul>
   <div id="fullpage">
