@@ -1,5 +1,5 @@
 # by Richi Rod AKA @richionline / falken20
-# ./falken_quotes/logger.py
+# ./falken_teleworking/logger.py
 
 import sys
 import os

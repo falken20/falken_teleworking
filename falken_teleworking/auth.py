@@ -1,4 +1,7 @@
-from flask import Blueprint
+# by Richi Rod AKA @richionline / falken20
+# ./falken_teleworking/auth.py
+
+from flask import Blueprint, render_template
 from .models import db
 
 auth = Blueprint('auth', __name__)
@@ -6,8 +9,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
 def login():
-    return 'Login'
-
+    return 'login'
 
 @auth.route('/signup')
 def signup():
