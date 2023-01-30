@@ -72,6 +72,15 @@ class Teleworking(db.Model):
         return new_teleworking
 
 
+class User(db.Model):
+    __tablename__ = "t_user"
+
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
+    name = db.Column(db.String(100))
+
+
 def init_db(app):
     """
     Main process to create the needed tables for the application
