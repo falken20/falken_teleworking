@@ -12,10 +12,9 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from dotenv import load_dotenv, find_dotenv
+from flask_login import UserMixin
 
-# from src.logger import Log
 import logging
-from .logger import Log
 
 FORMAT = '%(asctime)s %(levelname)s %(lineno)d %(filename)s %(funcName)s: %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
@@ -57,7 +56,7 @@ class Teleworking(db.Model):
 
     @staticmethod
     def create_day(values):
-        Log.info("Saving info day in DB...")
+        logging.info("Saving info day in DB...")
         # Delete the day if exists
         Teleworking.delete_day(datetime.now().date())
 
@@ -72,7 +71,9 @@ class Teleworking(db.Model):
         return new_teleworking
 
 
-class User(db.Model):
+# Flask-Login can manage user sessions. UserMixin will add Flask-Login attributes 
+# to the model so that Flask-Login will be able to work with it.
+class User(UserMixin, db.Model):
     __tablename__ = "t_user"
 
     id = db.Column(db.Integer, primary_key=True)

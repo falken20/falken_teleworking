@@ -1,8 +1,9 @@
 # by Richi Rod AKA @richionline / falken20
 # ./falken_teleworking/auth.py
 
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user, login_required, logout_user
 
 from .models import db, User
 
@@ -14,9 +15,27 @@ def login():
     return render_template('login.html')
 
 
+@auth.route('/login', methods=['POST'])
+def login_post():
+    email = request.form.get('email')
+    password = request.form('password')
+    remember = True if request.fom.get('remember') else False
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user or not check_password_hash(user.password, password):
+        flash('Please check your login details and try again.')
+        return redirect(url_for('auth.login'))
+
+    # If the above check passes, then we know the user has the right credentials
+    login_user(user, remember=remember)
+    return redirect(url_for('main.profile'))
+
+
 @auth.route('/signup')
 def signup():
     return render_template('signup.html')
+
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
@@ -29,10 +48,13 @@ def signup_post():
 
     # if a user is found, we want to redirect back to signup page so user can try again
     if user:
+        # By calling flash function, you can send a message to the next request
+        flash('Email address already exists')
         return redirect(url_for('auth.signup'))
 
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user= User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+    new_user = User(email=email, name=name,
+                    password=generate_password_hash(password, method='sha256'))
 
     db.session.add(new_user)
     db.session.commit()
@@ -41,5 +63,7 @@ def signup_post():
 
 
 @auth.route('/logout')
+@login_required
 def logout():
-    return 'Logout'
+    logout_user()
+    return redirect(url_for('main.index'))
