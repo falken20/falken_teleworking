@@ -17,6 +17,7 @@ main = Blueprint('main', __name__)
 
 @main.route("/", methods=('GET', 'POST'))
 @main.route("/home", methods=('GET', 'POST'))
+@login_required
 def index():
     Log.info("Access to home page")
 

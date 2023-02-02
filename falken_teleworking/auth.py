@@ -18,8 +18,8 @@ def login():
 @auth.route('/login', methods=['POST'])
 def login_post():
     email = request.form.get('email')
-    password = request.form('password')
-    remember = True if request.fom.get('remember') else False
+    password = request.form.get('password')
+    remember = True if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
 
@@ -66,4 +66,4 @@ def signup_post():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('auth.signup'))
