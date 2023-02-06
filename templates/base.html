@@ -19,36 +19,44 @@
                 <div class="navbar-brand">
                         {% if current_user.is_authenticated %}
                         <a href="{{ url_for('main.index') }}" class="navbar-item">
-                            <img src="/static/assets/logo_app.ico">
+                            <img src="/static/assets/logo_app.png">
                         </a>
                         {% endif %}
                 </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.profile') }}" class="button is-light">
-                            Profile
-                        </a>
-                        {% endif %}
-                        <a href="{{ url_for('auth.login') }}" class="button is-primary">
-                            Login
-                        </a>
-                        <a href="{{ url_for('auth.signup') }}" class="button is-light">
-                            Sign Up
-                        </a>
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.logout') }}" class="button is-light">
-                            Logout
-                        </a>
-                        {% endif %}
+                        <div class="buttons">∑
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('main.profile') }}" class="button is-info is-small">
+                                Profile
+                            </a>
+                            {% endif %}
+                            {% if current_user.is_anonymous %}
+                            <a href="{{ url_for('auth.login') }}" class="button is-info is-small">
+                                Login
+                            </a>
+                            {% endif %}
+                            <!--
+                            {% if current_user.is_anonymous %}
+                            <a href="{{ url_for('auth.signup') }}" class="button is-info is-small">
+                                Sign Up
+                            </a>
+                            {% endif %}
+                            -->
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.logout') }}" class="button is-danger is-small">
+                                Logout
+                            </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </nav>
         </div>
 
         <div class="hero-body">
-            <div class="container has-text-centered">
-               {% block content %}
+            <div class="container has-text-centered contentTable">
+               {% block content %} 
                {% endblock %}
             </div>
         </div>

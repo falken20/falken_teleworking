@@ -14,12 +14,12 @@
             <td title="Office days" colspan="2" class="appData">{{ count_office }}</td>
         </tr>
         <tr>
-            <th scope="row">Office %</th>
+            <th scope="row">Office</th>
             <td title="Current Rate" colspan="2" class="appData">{{ percent }}%</td>
         </tr>
         <form method="POST">
-            <tr style="height: 100px;">
-                <td scope="col" style="width: 50%; color: red !important; font-size: 60px !important;" colspan="2">{{ day }}</td>
+            <tr>
+                <td scope="col" style="color: red !important; font-size: 40px !important; text-align: center;" colspan="2">{{ day }}</td>
             </tr>  
             <tr>
                 <td scope="col" style="width: 25%; text-align: left !important;">
@@ -32,7 +32,7 @@
                         <label class="form-check-label" for="placeWork2">Office</label>
                     </div>                         
                 </td>
-                <td scope="col" style="width: 25%; height: 300px !important;">
+                <td scope="col" style="width: 25%; vertical-align: middle;">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" style="font-size: 100% !important;">Save</button>
                 </td>
             </tr>                      

@@ -1,6 +1,6 @@
 .mainPage {
     text-align: center;
-    font-size: 3em;
+    font-size: 2em;
     background-image: url('/static/assets/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -26,8 +26,13 @@
     color: black !important;
     font-size: 100% !important;
     text-align: left;
+    font-weight: bolder;
 }
 
-
+.contentTable {
+    width:100%;
+    display: flex;
+    justify-content: center;
+  }
 
 
