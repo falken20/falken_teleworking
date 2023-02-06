@@ -64,4 +64,5 @@ LEVEL_LOG = ["DEBUG", "INFO", "WARNING", "ERROR"]
 - LoginManager: A user loader tells Flask-Login how to find a specific user from the ID that is stored in their session cookie. 
 - @login-required: Decorator to protect a page when using Flask-Login.
 - current_user: Object that represents the user from the database and provides access all of the attributes of that user with dot notation.
-- Bulma: CSS framework
+- Bulma: CSS framework (https://bulma.io/)
+- Help to apply Flask-Login (https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login)
