@@ -2,7 +2,6 @@
 # ./falken_teleworking/__init__.py
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv, find_dotenv
 from flask_login import LoginManager

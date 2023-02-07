@@ -71,7 +71,7 @@ class Teleworking(db.Model):
         return new_teleworking
 
 
-# Flask-Login can manage user sessions. UserMixin will add Flask-Login attributes 
+# Flask-Login can manage user sessions. UserMixin will add Flask-Login attributes
 # to the model so that Flask-Login will be able to work with it.
 class User(UserMixin, db.Model):
     __tablename__ = "t_user"

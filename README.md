@@ -4,7 +4,7 @@
 <img src="./static/assets/logo_app.png" alt="drawing" width="400"/>
 <a href="https://richionline-portfolio.nw.r.appspot.com"><img src="https://richionline-portfolio.nw.r.appspot.com/static/assets/falken_logo.ico" width=40 alt="Personal Portfolio web"></a>
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue) ![GitHub language count](https://img.shields.io/github/languages/count/falken20/falken_teleworking) ![GitHub Top languaje](https://img.shields.io/github/languages/top/falken20/falken_teleworking) ![Test coverage](https://img.shields.io/badge/test%20coverage-97%25-green) ![GitHub License](https://img.shields.io/github/license/falken20/falken_teleworking)[![Python used version](https://img.shields.io/static/v1?label=python&message=3.8&color=blue&logo=python&logoColor=white)
+![Version](https://img.shields.io/badge/version-1.2.0-blue) ![GitHub language count](https://img.shields.io/github/languages/count/falken20/falken_teleworking) ![GitHub Top languaje](https://img.shields.io/github/languages/top/falken20/falken_teleworking) ![Test coverage](https://img.shields.io/badge/test%20coverage-97%25-green) ![GitHub License](https://img.shields.io/github/license/falken20/falken_teleworking)[![Python used version](https://img.shields.io/static/v1?label=python&message=3.8&color=blue&logo=python&logoColor=white)
 
   
 [![Richi web](https://img.shields.io/badge/web-richionline-blue)](https://richionline-portfolio.nw.r.appspot.com) [![Twitter](https://img.shields.io/twitter/follow/richionline?style=social)](https://twitter.com/richionline)
@@ -53,9 +53,9 @@ LEVEL_LOG = ["DEBUG", "INFO", "WARNING", "ERROR"]
 ---
 
 ##### Versions
-1.2.0 Include login module
-1.0.1 Including tests
-1.0.0 Application
+- 1.2.0 Include login module
+- 1.0.1 Including tests
+- 1.0.0 Application
 
 ---
 ##### learning tips

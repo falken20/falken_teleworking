@@ -1,16 +1,12 @@
 # by Richi Rod AKA @richionline / falken20
 # ./falken_teleworking/main.py
 
-from .auth import auth as auth_blueprint
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
-from dotenv import load_dotenv, find_dotenv
-import os
 from datetime import datetime
 
-from .logger import Log, console
-from .config import get_settings
-from .models import Teleworking, db
+from .logger import Log
+from .models import Teleworking
 
 main = Blueprint('main', __name__)
 
@@ -49,5 +45,3 @@ def index():
 @login_required
 def profile():
     return render_template('profile.html', name=current_user.name)
-
-

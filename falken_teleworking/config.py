@@ -1,6 +1,11 @@
 # by Richi Rod AKA @richionline / falken20
 # ./falken_teleworking/config.py
 
+# Library that uses type annotation to validate data and manage settings.
+from pydantic import BaseSettings
+# Library to cache the data
+from functools import lru_cache
+
 __title__ = 'Falken Teleworking'
 __version__ = '1.0.0'
 __author__ = 'Falken'
@@ -24,11 +29,6 @@ SETUP_DATA = {
     'copyrigth': __copyright__,
     'features': __features__,
 }
-
-# Library that uses type annotation to validate data and manage settings.
-from pydantic import BaseSettings
-# Library to cache the data
-from functools import lru_cache
 
 
 class Settings(BaseSettings):
