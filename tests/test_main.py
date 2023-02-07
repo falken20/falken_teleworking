@@ -1,12 +1,14 @@
 import unittest
 
-from falken_teleworking import main
+from falken_teleworking import create_app
+
+app = create_app()
 
 class TestMain(unittest.TestCase):
     
     def setUp(self) -> None:
-        main.app.config['TESTING'] = True
-        self.app = main.app.test_client()
+        app.config['TESTING'] = True
+        self.app = app.test_client()
 
     def test_home(self):
         response = self.app.get("/")
