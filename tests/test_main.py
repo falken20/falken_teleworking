@@ -2,11 +2,11 @@ import unittest
 
 from falken_teleworking import create_app
 
-app = create_app()
 
 class TestMain(unittest.TestCase):
     
     def setUp(self) -> None:
+        app = create_app()
         app.config['TESTING'] = True
         self.app = app.test_client()
 
