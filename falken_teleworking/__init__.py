@@ -1,26 +1,52 @@
 # by Richi Rod AKA @richionline / falken20
-# ./falken_quotes/__init__.py
+# ./falken_teleworking/__init__.py
 
-__title__ = 'Falken Teleworking'
-__version__ = '1.0.0'
-__author__ = 'Falken'
-__url_github__ = 'https://github.com/falken20/'
-__url_twitter__ = 'https://twitter.com/richionline'
-__url_linkedin__ = 'https://www.linkedin.com/in/richionline/'
-__license__ = 'MIT License'
-__copyright__ = '© 2023 by Richi Rod AKA @richionline / falken20'
-__features__ = [
-]
+from flask import Flask
+import os
+from dotenv import load_dotenv, find_dotenv
+from flask_login import LoginManager
+
+from .models import db
+from .logger import Log, console
+from .config import get_settings
+
+console.rule("Falken Teleworking")
+# Set environment vars
+load_dotenv(find_dotenv())
+settings = get_settings()
+Log.info(f"Settings: {settings}")
 
 
-SETUP_DATA = {
-    'title': __title__,
-    'version': __version__,
-    'author': __author__,
-    'url_github': __url_github__,
-    'url_twitter': __url_twitter__,
-    'url_linkedin': __url_linkedin__,
-    'license': __license__,
-    'copyrigth': __copyright__,
-    'features': __features__,
-}
+def create_app():
+    app = Flask(__name__, template_folder="../templates",
+                static_folder="../static")
+
+    app.config['SECRET_KEY'] = 'secret-key-goes-here'
+    app.config['TEMPLATE_AUTO_RELOAD'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'].replace(
+        "://", "ql://", 1)
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+    db.init_app(app)
+
+    # A user loader tells Flask-Login how to find a specific user from the ID that is stored in their
+    # session cookie.
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+    from .models import User
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        # Since the user_id is just the primary key of our user table, use it in the query for the user
+        return User.query.get(int(user_id))
+
+    # blueprint for auth routes in our app
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint)
+
+    # blueprint for non-auth parts of app
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+
+    return app

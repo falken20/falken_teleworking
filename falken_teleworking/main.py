@@ -1,35 +1,20 @@
 # by Richi Rod AKA @richionline / falken20
-# ./falken_quotes/main.py
+# ./falken_teleworking/main.py
 
-from flask import Flask, render_template, request
-from dotenv import load_dotenv, find_dotenv
-import os
+from flask import Blueprint, render_template, request
+from flask_login import login_required, current_user
 from datetime import datetime
 
-from .logger import Log, console
-from .config import get_settings
-from .models import Teleworking, db
+from .logger import Log
+from .models import Teleworking
 
-# Set environment vars
-load_dotenv(find_dotenv())
-
-console.rule("Falken Teleworking")
-settings = get_settings()
-Log.info(f"Settings: {settings}")
-
-app = Flask(__name__, template_folder="../templates",
-            static_folder="../static")
-app.config['TEMPLATE_AUTO_RELOAD'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'].replace(
-    "://", "ql://", 1)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-
-db.init_app(app)
+main = Blueprint('main', __name__)
 
 
-@app.route("/", methods=('GET', 'POST'))
-@app.route("/home", methods=('GET', 'POST'))
-def home():
+@main.route("/", methods=('GET', 'POST'))
+@main.route("/home", methods=('GET', 'POST'))
+@login_required
+def index():
     Log.info("Access to home page")
 
     if request.method == "POST" and request.form.get('work_home') is not None:
@@ -56,5 +41,7 @@ def home():
                            checked_office=checked_office)
 
 
-if __name__ == "__main__":
-    app.run()
+@main.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', name=current_user.name)
