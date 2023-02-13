@@ -52,5 +52,5 @@ def profile():
 def calendar():
     # Get all date fields for fullfill calendar
     all_dates = Teleworking.get_all_dates()
-
+    Log.debug(all_dates)
     return render_template('calendar.html', all_dates=all_dates)

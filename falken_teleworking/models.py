@@ -43,7 +43,7 @@ class Teleworking(db.Model):
     @staticmethod
     def get_all_dates():
         """ Get all date fields in DB """
-        return Teleworking.query.with_entities(Teleworking.work_date).order_by(Teleworking.work_date.asc()).all()
+        return Teleworking.query.with_entities(Teleworking.work_date, Teleworking.work_home).order_by(Teleworking.work_date.asc()).all()
 
     @staticmethod
     def get_count_days(work_home):
