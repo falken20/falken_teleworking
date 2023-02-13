@@ -53,6 +53,7 @@ LEVEL_LOG = ["DEBUG", "INFO", "WARNING", "ERROR"]
 ---
 
 ##### Versions
+- 1.3.0 Adding calendar
 - 1.2.0 Include login module and new design
 - 1.0.1 Including tests
 - 1.0.0 Application
