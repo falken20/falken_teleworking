@@ -50,4 +50,7 @@ def profile():
 @main.route('/calendar')
 @login_required
 def calendar():
-    return render_template('calendar.html')
+    # Get all date fields for fullfill calendar
+    all_dates = Teleworking.get_all_dates()
+
+    return render_template('calendar.html', all_dates=all_dates)
