@@ -4,11 +4,14 @@
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from datetime import datetime
+from functools import lru_cache
 
 from .logger import Log
 from .models import Teleworking
 
 main = Blueprint('main', __name__)
+
+previous_cache = datetime.now()
 
 
 @main.route("/", methods=('GET', 'POST'))
@@ -31,6 +34,8 @@ def index():
             checked_home = "checked"
         else:
             checked_office = "checked"
+    
+    check_cache(minutes=180)
 
     return render_template("index.html",
                            day=datetime.now().date(),
@@ -47,6 +52,7 @@ def profile():
     return render_template('profile.html', name=current_user.name)
 
 
+@lru_cache(maxsize=3)
 @main.route('/calendar')
 @login_required
 def calendar():
@@ -54,3 +60,24 @@ def calendar():
     all_dates = Teleworking.get_all_dates()
     Log.debug(all_dates)
     return render_template('calendar.html', all_dates=all_dates)
+
+
+def check_cache(minutes: int = 60):
+    # Cache info:
+    # hits is the number of calls that @lru_cache returned directly from memory because they existed in the cache.
+    # misses is the number of calls that didn’t come from memory and were computed.
+    # maxsize is the size of the cache as you defined it with the maxsize attribute of the decorator.
+    # currsize  is the current size of the cache.
+    global previous_cache
+    Log.info(f"CACHE: {calendar.cache_info()}", style="yelloW")
+    Log.info(
+        f"Checking expiration time for cache({minutes=})...", style="yellow")
+    Log.debug(f"Previous cache: {previous_cache}", style="yellow")
+    Log.debug(f"Current time: {datetime.now()}", style="yellow")
+    difference = (datetime.now() - previous_cache).seconds / 60
+    Log.info(f"Cache span: {int(difference)} minutes", style="yellow")
+    if difference > minutes:
+        Log.info("Cleaning cache by expiration...", style="yellow")
+        calendar.cache_clear()
+        previous_cache = datetime.now()
+        Log.info(f"CACHE: {calendar.cache_info()}", style="yellow")
