@@ -16,6 +16,10 @@ load_dotenv(find_dotenv())
 settings = get_settings()
 Log.info(f"Settings: {settings}")
 
+# Cache info
+from .main import check_cache
+check_cache()
+
 
 def create_app():
     app = Flask(__name__, template_folder="../templates",
@@ -50,3 +54,4 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     return app
+
