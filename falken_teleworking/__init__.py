@@ -5,7 +5,6 @@ from flask import Flask
 import os
 from dotenv import load_dotenv, find_dotenv
 from flask_login import LoginManager
-from datetime import datetime
 
 from .models import db
 from .logger import Log, console
@@ -18,9 +17,8 @@ settings = get_settings()
 Log.info(f"Settings: {settings}")
 
 # Cache info
-from .main import calendar
-calendar.cache_clear()
-console.print(f"CACHE: {calendar.cache_info()}", style="yelloW")
+from .main import check_cache
+check_cache()
 
 
 def create_app():

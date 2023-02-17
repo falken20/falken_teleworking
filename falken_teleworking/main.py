@@ -8,6 +8,7 @@ from functools import lru_cache
 
 from .logger import Log
 from .models import Teleworking
+from .config import get_settings
 
 main = Blueprint('main', __name__)
 
@@ -35,7 +36,7 @@ def index():
         else:
             checked_office = "checked"
     
-    check_cache(minutes=180)
+    check_cache()
 
     return render_template("index.html",
                            day=datetime.now().date(),
@@ -52,14 +53,18 @@ def profile():
     return render_template('profile.html', name=current_user.name)
 
 
-@lru_cache(maxsize=3)
 @main.route('/calendar')
 @login_required
 def calendar():
     # Get all date fields for fullfill calendar
-    all_dates = Teleworking.get_all_dates()
+    all_dates = calendar_data()
     Log.debug(all_dates)
     return render_template('calendar.html', all_dates=all_dates)
+
+
+@lru_cache(maxsize=1)
+def calendar_data():
+    return Teleworking.get_all_dates() 
 
 
 def check_cache(minutes: int = 60):
@@ -69,7 +74,8 @@ def check_cache(minutes: int = 60):
     # maxsize is the size of the cache as you defined it with the maxsize attribute of the decorator.
     # currsize  is the current size of the cache.
     global previous_cache
-    Log.info(f"CACHE: {calendar.cache_info()}", style="yelloW")
+    Log.info(f"CACHE calendar_data(): {calendar_data.cache_info()}", style="yelloW")
+    Log.info(f"CACHE get_settings(): {get_settings.cache_info()}", style="yelloW")
     Log.info(
         f"Checking expiration time for cache({minutes=})...", style="yellow")
     Log.debug(f"Previous cache: {previous_cache}", style="yellow")
