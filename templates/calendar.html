@@ -10,41 +10,6 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
 <script>
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        navLinks: false, // default false
-        weekends: false, 
-        headerToolbar: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'today'
-        },        
-        firstDay : 1,
-        eventSources: [
-            {
-                events: [ 
-                    {
-                        title  : 'Home',
-                        start  : '2023-02-01',
-                        color  : 'green'                    },
-                    {
-                        title  : 'Office',
-                        start  : '2023-02-05',
-                        end    : '2023-02-07',
-                        color  : 'blue'
-                    }
-                ],
-                color: 'black',
-                textColor: 'white',
-            }
-        ]  
-    });
-    calendar.setOption('aspectRatio', 0.7);
-    calendar.render();
-  });
-
 </script>
 <style type="text/css">
     body {
@@ -96,18 +61,40 @@
     //var all_dates = '{{ all_dates }}';
 
     var events = []
-    var color_bg 
+    var color_bg, text_day 
     dates.forEach(function (item, index) {
-        if (item[1] == "True") {color_bg = color_home} else {color_bg = color_office}
+        if (item[1] == "True") {color_bg = color_home, text_day = 'Home'} else {color_bg = color_office, text_day = 'Office'}
         var obj = {
             start: item[0],
-            color: color_bg
+            color: color_bg,
+            title: text_day
         }
         events.push(obj)
     });
 
-    console.log(calendar)
-    calendar.setOption('events', events)
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            navLinks: false, // default false
+            weekends: false, 
+            headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'today'
+            },        
+            firstDay : 1,
+            eventSources: [
+                {
+                    events: events,
+                    color: 'black',
+                    textColor: 'white',
+                }
+            ]  
+        });
+        calendar.setOption('aspectRatio', 0.7);
+        calendar.render();
+    });
 
 </script>
 
