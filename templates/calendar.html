@@ -2,21 +2,58 @@
 
 {% block content %}
 
-<!-- Mobiscroll JS and CSS Includes -->
+<!-- Mobiscroll JS and CSS Includes
 <link rel="stylesheet" href="{{ url_for('static', filename='mobiscroll.javascript.min.css') }}">
 <script src="{{ url_for('static', filename='js/mobiscroll.javascript.min.js') }}"></script>
+-->
 
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        navLinks: false, // default false
+        weekends: false, 
+        headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'today'
+        },        
+        firstDay : 1,
+        eventSources: [
+            {
+                events: [ 
+                    {
+                        title  : 'Home',
+                        start  : '2023-02-01',
+                        color  : 'green'                    },
+                    {
+                        title  : 'Office',
+                        start  : '2023-02-05',
+                        end    : '2023-02-07',
+                        color  : 'blue'
+                    }
+                ],
+                color: 'black',
+                textColor: 'white',
+            }
+        ]  
+    });
+    calendar.setOption('aspectRatio', 0.7);
+    calendar.render();
+  });
+
+</script>
 <style type="text/css">
-        body {
-    margin: 0;
-    padding: 0;
-}
-
-body,
-html {
-    height: 100%;
-}
-
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    body, html {
+        height: 100%;
+    }    
 </style>
 
 <div mbsc-page class="demo-dots-colors-labels">
@@ -24,9 +61,9 @@ html {
             <div class="mbsc-grid">
     <div class="mbsc-row">
         <div class="mbsc-col-sm-12 mbsc-col-md-4">
-            <div class="mbsc-form-group">
+            <div class="mbsc-form-group calendar">
                 <div class="mbsc-form-group-title">Home 🟩 / Office 🟦</div>
-                <div id="demo-colored"></div>
+                <div id='calendar'></div>
             </div>
         </div>
     </div>
@@ -35,7 +72,7 @@ html {
 </div>
 
 <script>
-    var array = []
+    var dates = []
     var elem = []
 </script>
 
@@ -46,52 +83,31 @@ html {
         </script>
     {% endfor %}
     <script>
-        array.push(elem)
+        dates.push(elem)
         elem = []
     </script>
 {% endfor %}
 
 <script>    
-    mobiscroll.setOptions({
-        locale: mobiscroll.localeEs,  // Specify language like: locale: mobiscroll.localePl or omit setting to use default
-        theme: 'ios',                 // Specify theme like: theme: 'ios' or omit setting to use default
-        themeVariant: 'light'         // More info about themeVariant: https://docs.mobiscroll.com/5-22-0/javascript/calendar#opt-themeVariant
-    });
-
     var now = new Date();
 
     var color_office = '#357EC7';
     var color_home = 'green';
     //var all_dates = '{{ all_dates }}';
 
-    var colors = []
+    var events = []
     var color_bg 
-    array.forEach(function (item, index) {
+    dates.forEach(function (item, index) {
         if (item[1] == "True") {color_bg = color_home} else {color_bg = color_office}
         var obj = {
-            date: item[0],
-            background: color_bg
+            start: item[0],
+            color: color_bg
         }
-        colors.push(obj)
+        events.push(obj)
     });
 
-    mobiscroll.datepicker('#demo-colored', {
-        controls: ['calendar'],       // More info about controls: https://docs.mobiscroll.com/5-22-0/javascript/calendar#opt-controls
-        display: 'inline',            // Specify display mode like: display: 'bottom' or omit setting to use default
-        colors: colors                // More info about colors: https://docs.mobiscroll.com/5-22-0/javascript/calendar#opt-colors
-        /*
-        colors: [                     // More info about colors: https://docs.mobiscroll.com/5-22-0/javascript/calendar#opt-colors
-            //{ recurring: { repeat: 'yearly', month: 12, day: 8 }, background: '#9ccc65' },
-            // { start: new Date(now.getFullYear(), now.getMonth() + 1, 15), end: new Date(now.getFullYear(), now.getMonth() + 1, 18), text: 'Conference', background: '#f4511e' }
-            // { date: new Date(now.getFullYear(), now.getMonth() + 1, 4), background: '#cfd8dc' },
-            { date: new Date(now.getFullYear(), now.getMonth(), 2), background: color_office },
-            { date: new Date(now.getFullYear(), now.getMonth(), 3), background: color_office },
-            { date: new Date(now.getFullYear(), now.getMonth(), 11), background: color_office },
-            { date: new Date(now.getFullYear(), now.getMonth(), 19), background: color_home },
-            { date: new Date(now.getFullYear(), now.getMonth(), 28), background: color_home },
-        ]
-        */
-    });
+    console.log(calendar)
+    calendar.setOption('events', events)
 
 </script>
 
