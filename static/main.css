@@ -33,6 +33,12 @@
     width:100%;
     display: flex;
     justify-content: center;
-  }
+}
 
+.calendar {
+    font-size: 40% !important;
+    color: black;
+    background-color: white;
+    opacity: .90;
+}
 
