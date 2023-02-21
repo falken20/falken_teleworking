@@ -36,7 +36,7 @@ def index():
             checked_home = "checked"
         else:
             checked_office = "checked"
-    
+
     check_cache()
 
     return render_template("index.html",
@@ -66,7 +66,7 @@ def calendar():
 
 @lru_cache(maxsize=1)
 def calendar_data():
-    return Teleworking.get_all_dates() 
+    return Teleworking.get_all_dates()
 
 
 def check_cache(minutes: int = 60):

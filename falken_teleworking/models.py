@@ -35,29 +35,32 @@ class Teleworking(db.Model):
     work_user = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)
 
     def __repr__(self) -> str:
-        return f"Day: {self.work_date} / Work Home: {self.work_home}"
+        return f"Day: {self.work_date} / Work Home: {self.work_home} / User: {self.work_user}"
 
     @staticmethod
-    def get_all_days():
-        return Teleworking.query.order_by(Teleworking.work_date.desc()).all()
+    def get_all_data():
+        """ Get all fields in the DB by logged user """
+        return Teleworking.query.filter_by(work_user=current_user.id).order_by(Teleworking.work_date.desc()).all()
 
     @staticmethod
     def get_all_dates():
-        """ Get all date fields in DB """
-        return Teleworking.query.with_entities(Teleworking.work_date, Teleworking.work_home).order_by(Teleworking.work_date.asc()).all()
+        """ Get all date fields in DB by logged user """
+        return (Teleworking.query.with_entities(Teleworking.work_date, Teleworking.work_home)
+                .filter_by(work_user=current_user.id)
+                .order_by(Teleworking.work_date.asc()).all())
 
     @staticmethod
     def get_count_days(work_home):
         """ Return count days working at home (true) or office (false) """
-        return len(Teleworking.query.filter_by(work_home=work_home).all())
+        return len(Teleworking.query.filter_by(work_user=current_user.id, work_home=work_home).all())
 
     @staticmethod
     def get_day(work_date):
-        return Teleworking.query.filter_by(work_date=work_date).first()
+        return Teleworking.query.filter_by(work_user=current_user.id, work_date=work_date).first()
 
     @staticmethod
     def delete_day(work_date):
-        Teleworking.query.filter_by(work_date=work_date).delete()
+        Teleworking.query.filter_by(work_user=current_user.id, work_date=work_date).delete()
         db.session.commit()
 
     @staticmethod

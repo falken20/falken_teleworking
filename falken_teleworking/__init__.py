@@ -9,6 +9,7 @@ from flask_login import LoginManager
 from .models import db
 from .logger import Log, console
 from .config import get_settings
+from .main import check_cache
 
 console.rule("Falken Teleworking")
 # Set environment vars
@@ -17,7 +18,6 @@ settings = get_settings()
 Log.info(f"Settings: {settings}")
 
 # Cache info
-from .main import check_cache
 check_cache()
 
 
@@ -54,4 +54,3 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     return app
-

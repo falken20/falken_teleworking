@@ -42,9 +42,9 @@ class TestModels(unittest.TestCase):
     def test_repr(self):
         self.assertIn("Day:", repr(Teleworking.create_day(TEST_ROW)))
 
-    def test_get_all_days(self):
+    def test_get_all_data(self):
         Teleworking.create_day(TEST_ROW)
-        self.assertEqual(1, len(Teleworking.get_all_days()))
+        self.assertEqual(1, len(Teleworking.get_all_data()))
 
     def test_get_count_days(self):
         Teleworking.create_day(TEST_ROW)
