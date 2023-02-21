@@ -40,5 +40,10 @@
     color: black;
     background-color: white;
     opacity: .90;
+    padding: 3px;
 }
 
+button {
+    color: black !important;
+    background-color: white !important;
+}
