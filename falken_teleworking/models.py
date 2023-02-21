@@ -12,7 +12,7 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from dotenv import load_dotenv, find_dotenv
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 
 import logging
 
@@ -32,6 +32,7 @@ class Teleworking(db.Model):
 
     work_date = db.Column(db.Date, primary_key=True)
     work_home = db.Column(db.Boolean)
+    work_user = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)
 
     def __repr__(self) -> str:
         return f"Day: {self.work_date} / Work Home: {self.work_home}"
@@ -68,6 +69,7 @@ class Teleworking(db.Model):
         new_teleworking = Teleworking(
             work_date=datetime.now().date(),
             work_home=True if values.get('work_home') == "True" else False,
+            work_user=current_user.id,
         )
 
         db.session.add(new_teleworking)
@@ -85,6 +87,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
+    work_dates = db.relationship('Teleworking', backref='user', lazy=True)
 
 
 def init_db(app):

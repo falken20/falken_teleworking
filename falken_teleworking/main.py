@@ -20,6 +20,7 @@ previous_cache = datetime.now()
 @login_required
 def index():
     Log.info("Access to home page")
+    Log.debug(f"Current user: {current_user.name}")
 
     if request.method == "POST" and request.form.get('work_home') is not None:
         Log.info("Saving the day info...")
@@ -44,7 +45,8 @@ def index():
                            count_office=count_office,
                            percent=percent,
                            checked_home=checked_home,
-                           checked_office=checked_office)
+                           checked_office=checked_office,
+                           user=current_user.name)
 
 
 @main.route('/profile')
