@@ -20,22 +20,26 @@ previous_cache = datetime.now()
 @login_required
 def index():
     Log.info("Access to home page")
+    Log.debug(f"Current user: {current_user.name}")
 
     if request.method == "POST" and request.form.get('work_home') is not None:
         Log.info("Saving the day info...")
-        Teleworking.create_day(request.form)
+        Teleworking.create_day(request.form, current_user.id)
 
-    count_home = Teleworking.get_count_days("true")
-    count_office = Teleworking.get_count_days("false")
-    percent = round(count_office / (count_home + count_office) * 100, 2)
+    count_home = Teleworking.get_count_days("true", current_user.id)
+    count_office = Teleworking.get_count_days("false", current_user.id)
+    if (count_home + count_office != 0):
+        percent = round(count_office / (count_home + count_office) * 100, 2)
+    else:
+        percent = 0
 
     checked_home, checked_office = None, None
-    if Teleworking.get_day(datetime.now().date()):
-        if (Teleworking.get_day(datetime.now().date())).work_home:
+    if Teleworking.get_day(datetime.now().date(), current_user.id):
+        if (Teleworking.get_day(datetime.now().date(), current_user.id)).work_home:
             checked_home = "checked"
         else:
             checked_office = "checked"
-    
+
     check_cache()
 
     return render_template("index.html",
@@ -44,7 +48,8 @@ def index():
                            count_office=count_office,
                            percent=percent,
                            checked_home=checked_home,
-                           checked_office=checked_office)
+                           checked_office=checked_office,
+                           user=current_user.name)
 
 
 @main.route('/profile')
@@ -57,14 +62,14 @@ def profile():
 @login_required
 def calendar():
     # Get all date fields for fullfill calendar
-    all_dates = calendar_data()
+    all_dates = calendar_data(current_user.id)
     Log.debug(all_dates)
     return render_template('calendar.html', all_dates=all_dates)
 
 
 @lru_cache(maxsize=1)
-def calendar_data():
-    return Teleworking.get_all_dates() 
+def calendar_data(user_id):
+    return Teleworking.get_all_dates(user_id)
 
 
 def check_cache(minutes: int = 60):
