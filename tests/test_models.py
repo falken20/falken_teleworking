@@ -7,7 +7,7 @@ from io import StringIO
 from falken_teleworking.models import db, Teleworking, init_db
 
 TEST_DATE = datetime.now().date()
-TEST_ROW = {"work_day": TEST_DATE, "work_home": "True"}
+TEST_ROW = {"work_day": TEST_DATE, "work_home": "True", "work_user": 1}
 
 
 class TestModels(unittest.TestCase):
@@ -40,15 +40,15 @@ class TestModels(unittest.TestCase):
             db.drop_all()
 
     def test_repr(self):
-        self.assertIn("Day:", repr(Teleworking.create_day(TEST_ROW)))
+        self.assertIn("Day:", repr(Teleworking.create_day(TEST_ROW, user_id=TEST_ROW['work_user'])))
 
     def test_get_all_data(self):
-        Teleworking.create_day(TEST_ROW)
-        self.assertEqual(1, len(Teleworking.get_all_data()))
+        Teleworking.create_day(TEST_ROW, user_id=TEST_ROW['work_user'])
+        self.assertEqual(1, len(Teleworking.get_all_data(user_id=TEST_ROW['work_user'])))
 
     def test_get_count_days(self):
-        Teleworking.create_day(TEST_ROW)
-        self.assertEqual(1, Teleworking.get_count_days(True))
+        Teleworking.create_day(TEST_ROW, user_id=TEST_ROW['work_user'])
+        self.assertEqual(1, Teleworking.get_count_days(True, user_id=TEST_ROW['work_user']))
 
     @patch('sys.stdin', StringIO('N\nN\n'))  # Simulate user input
     def test_init_db(self):

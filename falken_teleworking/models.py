@@ -12,7 +12,7 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from dotenv import load_dotenv, find_dotenv
-from flask_login import UserMixin, current_user
+from flask_login import UserMixin
 
 import logging
 
@@ -32,47 +32,47 @@ class Teleworking(db.Model):
 
     work_date = db.Column(db.Date, primary_key=True)
     work_home = db.Column(db.Boolean)
-    work_user = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)
+    work_user = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False, primary_key=True)
 
     def __repr__(self) -> str:
         return f"Day: {self.work_date} / Work Home: {self.work_home} / User: {self.work_user}"
 
     @staticmethod
-    def get_all_data():
+    def get_all_data(user_id: int):
         """ Get all fields in the DB by logged user """
-        return Teleworking.query.filter_by(work_user=current_user.id).order_by(Teleworking.work_date.desc()).all()
+        return Teleworking.query.filter_by(work_user=user_id).order_by(Teleworking.work_date.desc()).all()
 
     @staticmethod
-    def get_all_dates():
+    def get_all_dates(user_id: int):
         """ Get all date fields in DB by logged user """
         return (Teleworking.query.with_entities(Teleworking.work_date, Teleworking.work_home)
-                .filter_by(work_user=current_user.id)
+                .filter_by(work_user=user_id)
                 .order_by(Teleworking.work_date.asc()).all())
 
     @staticmethod
-    def get_count_days(work_home):
+    def get_count_days(work_home, user_id: int):
         """ Return count days working at home (true) or office (false) """
-        return len(Teleworking.query.filter_by(work_user=current_user.id, work_home=work_home).all())
+        return len(Teleworking.query.filter_by(work_user=user_id, work_home=work_home).all())
 
     @staticmethod
-    def get_day(work_date):
-        return Teleworking.query.filter_by(work_user=current_user.id, work_date=work_date).first()
+    def get_day(work_date, user_id: int):
+        return Teleworking.query.filter_by(work_user=user_id, work_date=work_date).first()
 
     @staticmethod
-    def delete_day(work_date):
-        Teleworking.query.filter_by(work_user=current_user.id, work_date=work_date).delete()
+    def delete_day(work_date, user_id: int):
+        Teleworking.query.filter_by(work_user=user_id, work_date=work_date).delete()
         db.session.commit()
 
     @staticmethod
-    def create_day(values):
+    def create_day(values, user_id: int):
         logging.info("Saving info day in DB...")
         # Delete the day if exists
-        Teleworking.delete_day(datetime.now().date())
+        Teleworking.delete_day(datetime.now().date(), user_id)
 
         new_teleworking = Teleworking(
             work_date=datetime.now().date(),
             work_home=True if values.get('work_home') == "True" else False,
-            work_user=current_user.id,
+            work_user=user_id,
         )
 
         db.session.add(new_teleworking)
