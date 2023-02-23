@@ -46,9 +46,17 @@ class TestModels(unittest.TestCase):
         Teleworking.create_day(TEST_ROW, user_id=TEST_ROW['work_user'])
         self.assertEqual(1, len(Teleworking.get_all_data(user_id=TEST_ROW['work_user'])))
 
+    def test_get_all_dates(self):
+        Teleworking.create_day(TEST_ROW, user_id=TEST_ROW['work_user'])
+        self.assertEqual(1, len(Teleworking.get_all_dates(user_id=TEST_ROW['work_user'])))
+
     def test_get_count_days(self):
         Teleworking.create_day(TEST_ROW, user_id=TEST_ROW['work_user'])
         self.assertEqual(1, Teleworking.get_count_days(True, user_id=TEST_ROW['work_user']))
+
+    def test_get_day(self):
+        Teleworking.create_day(TEST_ROW, user_id=TEST_ROW['work_user'])
+        self.assertEqual(1, Teleworking.get_day(TEST_ROW['work_day'], TEST_ROW['work_user']).work_user)
 
     @patch('sys.stdin', StringIO('N\nN\n'))  # Simulate user input
     def test_init_db(self):
