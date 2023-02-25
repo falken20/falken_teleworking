@@ -41,13 +41,11 @@
                                 Login
                             </a>
                             {% endif %}
-                            <!--
                             {% if current_user.is_anonymous %}
                             <a href="{{ url_for('auth.signup') }}" class="button is-info is-small">
                                 Sign Up
                             </a>
                             {% endif %}
-                            -->
                             {% if current_user.is_authenticated %}
                             <a href="{{ url_for('auth.logout') }}" class="button is-danger is-small">
                                 Logout

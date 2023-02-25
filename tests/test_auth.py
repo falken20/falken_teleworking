@@ -1,14 +1,16 @@
 import unittest
+import os
 
-from falken_teleworking import create_app
+from . import basetest
 
 
-class TestAuth(unittest.TestCase):
+class TestAuth(basetest.BaseTestCase):
     
-    def setUp(self) -> None:
-        app = create_app()
-        app.config['TESTING'] = True
-        self.app = app.test_client()
+    def login_http(self):
+        # log in via HTTP
+        r = self.app.post('/login', 
+                          data={'username': 'python', 'password': 'password'})
+        assert r.status_code == 200
 
     def test_login(self):
         response = self.app.get("/login")
@@ -19,6 +21,7 @@ class TestAuth(unittest.TestCase):
         self.assertEqual(200, response.status_code)
 
     def test_logout(self):
+        self.login_http()
         response = self.app.get("/logout")
         print(response.text)
         self.assertEqual(200, response.status_code)
