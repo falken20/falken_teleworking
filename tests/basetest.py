@@ -19,7 +19,7 @@ class BaseTestCase(unittest.TestCase):
         """ Creates a new database for the unit test to use """
         self.app = Flask(__name__, template_folder="../templates",
                     static_folder="../static")
-        self.app.config['SECRET_KEY'] = 'secret-key-goes-here'
+        self.app.config['SECRET_KEY'] = 'secret-key-test'
         self.app.config['TESTING'] = True
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.db')
         db.init_app(self.app)
