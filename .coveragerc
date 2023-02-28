@@ -3,3 +3,5 @@
 exclude_lines =
     if __name__ == .__main__.:
     except Exception as err:
+    def check_cache(minutes: int = 60):
+    if difference > minutes:

@@ -28,6 +28,7 @@ def index():
 
     count_home = Teleworking.get_count_days("true", current_user.id)
     count_office = Teleworking.get_count_days("false", current_user.id)
+    print(f'************* {count_home} - {count_office}')
     if (count_home + count_office != 0):
         percent = round(count_office / (count_home + count_office) * 100, 2)
     else:
