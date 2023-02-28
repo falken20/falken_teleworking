@@ -11,10 +11,11 @@ from falken_teleworking.main import main as main_blueprint
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-user = {'email': 'python@mail.com', 'name': 'python', 'password': 'password'}
 
 class BaseTestCase(unittest.TestCase):
-    
+    mock_user = {'email': 'python@mail.com', 'name': 'python', 'password': 'password'}
+    mock_user_unknown = {'email': 'python@mail.com', 'name': 'python', 'password': 'error_password'}    
+
     def setUp(self) -> None:
         """ Creates a new database for the unit test to use """
         self.app = Flask(__name__, template_folder="../templates",
@@ -35,6 +36,10 @@ class BaseTestCase(unittest.TestCase):
         with self.app.app_context():
             # Crea las tablas de la base de datos
             db.create_all()
+
+        # Create a user
+        self.create_user(self.mock_user)
+
         
     def tearDown(self):
         """ Ensures that the database is emptied for next unit test """
@@ -56,7 +61,16 @@ class BaseTestCase(unittest.TestCase):
             return User.query.get(int(user_id))
         
     @staticmethod
-    def create_user(user):
-        new_user = User(email=user['email'], name=user['name'],
-                    password=generate_password_hash(user['password'], method='sha256'))
+    def create_user(mock_user):
+        new_user = User(email=mock_user['email'], name=mock_user['name'],
+                    password=generate_password_hash(mock_user['password'], method='sha256'))
+        db.session.add(new_user)
+        db.session.commit()
         return new_user
+    
+    @staticmethod
+    def login_http(self):
+        return self.client.post('/login', data=dict(
+            email=self.mock_user['email'],
+            password=self.mock_user['password']
+        ), follow_redirects=True)
