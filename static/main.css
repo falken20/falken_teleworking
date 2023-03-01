@@ -68,3 +68,9 @@ th, td {
     padding-left: 10px !important;
     padding-right: 10px !important;
 }
+
+.hero-body {
+    padding-top: 0.2rem !important; 
+    padding-bottom: 0.2rem !important;    
+    padding-left: 1rem !important;
+}
