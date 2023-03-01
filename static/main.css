@@ -24,9 +24,28 @@
 
 .appData {
     color: black !important;
-    font-size: 100% !important;
-    text-align: left;
+    font-size: 80% !important;
+    text-align: center;
     font-weight: bolder;
+}
+
+.todayDate {
+    color: red !important; 
+    font-size: 80% !important;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.buttonApp {
+    color: black !important;
+    background-color: white !important;    
+    font-size: 60% !important;
+}
+
+.radioButtonApp {
+    width: 0.60em !important;
+    height: 0.60em !important;
+    margin-top:0.60em !important;
 }
 
 .contentTable {
@@ -43,7 +62,9 @@
     padding: 3px;
 }
 
-button {
-    color: black !important;
-    background-color: white !important;
+th, td {
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
 }

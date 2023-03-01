@@ -18,26 +18,26 @@
             <td title="Office days" colspan="2" class="appData">{{ count_office }}</td>
         </tr>
         <tr>
-            <th scope="row">Office</th>
-            <td title="Current Rate" colspan="2" class="appData">{{ percent }}%</td>
+            <th scope="row" class="appData">Office</th>
+            <td title="Percent" colspan="2" class="appData">{{ percent }}%</td>
         </tr>
         <form method="POST">
             <tr>
-                <td scope="col" style="color: red !important; font-size: 40px !important; text-align: center;" colspan="2">{{ day }}</td>
+                <td scope="col" class="todayDate" colspan="2">{{ day }}</td>
             </tr>  
             <tr>
                 <td scope="col" style="width: 25%; text-align: left !important;">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="work_home" id="placeWork1" value="True" {{ checked_home }}>
-                        <label class="form-check-label" for="placeWork1">Home</label>
+                        <input class="form-check-input radioButtonApp" type="radio" name="work_home" id="placeWork1" value="True" {{ checked_home }}>
+                        <label class="form-check-label appData" for="placeWork1">Home</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="work_home" id="placeWork2" value="False" {{ checked_office }}>
-                        <label class="form-check-label" for="placeWork2">Office</label>
+                        <input class="form-check-input radioButtonApp" type="radio" name="work_home" id="placeWork2" value="False" {{ checked_office }}>
+                        <label class="form-check-label appData" for="placeWork2">Office</label>
                     </div>                         
                 </td>
                 <td scope="col" style="width: 25%; vertical-align: middle;">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" style="font-size: 100% !important;">Save</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block buttonApp">Save</button>
                 </td>
             </tr>                      
         </form>
