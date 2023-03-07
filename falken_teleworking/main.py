@@ -21,13 +21,14 @@ previous_cache = datetime.now()
 def index():
     Log.info("Access to home page")
     Log.debug(f"Current user: {current_user.name}")
+    Log.debug(f"Date to calculate period percent: {current_user.date_from}")
 
     if request.method == "POST" and request.form.get('work_home') is not None:
         Log.info("Saving the day info...")
         Teleworking.create_day(request.form, current_user.id)
 
-    count_home = Teleworking.get_count_days(True, current_user.id)
-    count_office = Teleworking.get_count_days(False, current_user.id)
+    count_home = Teleworking.get_count_days(True, current_user.id, current_user.date_from)
+    count_office = Teleworking.get_count_days(False, current_user.id, current_user.date_from)
     if (count_home + count_office != 0):
         percent = round(count_office / (count_home + count_office) * 100, 2)
     else:
@@ -67,9 +68,9 @@ def calendar():
     return render_template('calendar.html', all_dates=all_dates)
 
 
-@lru_cache(maxsize=1)
+@lru_cache(maxsize=0)
 def calendar_data(user_id):
-    return Teleworking.get_all_dates(user_id)
+    return Teleworking.get_all_dates(user_id, current_user.date_from)
 
 
 def check_cache(minutes: int = 60):
