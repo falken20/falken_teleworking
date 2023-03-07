@@ -1,13 +1,13 @@
 import unittest
 from flask import Flask
-from datetime import datetime
+from datetime import date
 from unittest.mock import patch
 from io import StringIO
 
-from falken_teleworking.models import Teleworking, init_db
+from falken_teleworking.models import Teleworking, init_db, User
 from . import basetest
 
-TEST_DATE = datetime.now().date()
+TEST_DATE = date.today()
 TEST_ROW = {"work_day": TEST_DATE, "work_home": "True", "work_user": 1}
 
 
@@ -44,3 +44,6 @@ class TestModels(basetest.BaseTestCase):
     def test_init_db_with_create(self):
         init_db(self.app)
 
+    def test_get_user_date(self):
+        date_from = User.get_user_date(user_id=TEST_ROW['work_user']).date_from
+        self.assertTrue(isinstance(date_from, date))
