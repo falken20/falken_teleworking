@@ -67,6 +67,7 @@ th, td {
     padding-bottom: auto !important;
     padding-left: 10px !important;
     padding-right: 10px !important;
+    vertical-align: middle !important;
 }
 
 .hero-body {
