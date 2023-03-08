@@ -1,4 +1,5 @@
 import unittest
+from datetime import date
 
 from .basetest import BaseTestCase
 from falken_teleworking.models import Teleworking
@@ -52,3 +53,9 @@ class TestMain(BaseTestCase):
         ))
         count_days = Teleworking.get_count_days(False, 1)
         self.assertEqual(1, count_days)
+
+    def test_profile_post(self):
+        BaseTestCase.login_http(self)
+        response = self.client.post('/profile', data=dict(date_from=date.today()))
+        self.assertEqual(200, response.status_code)
+

@@ -108,6 +108,13 @@ class User(UserMixin, db.Model):
     def get_user_date(user_id: int):
         return User.query.filter_by(id=user_id).first()
 
+    @staticmethod
+    def update_user_date(user_id: int, date_from: date):
+        user = User.query.filter_by(id=user_id).first()
+        user.date_from = date_from
+
+        db.session.commit()
+
 
 def init_db(app):
     """

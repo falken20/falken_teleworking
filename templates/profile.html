@@ -12,11 +12,11 @@
             <td title="User" class="appData">{{ name }}</td>
           </tr>
           <tr>
-              <th scope="row"><img src="/static/assets/calendar.png" style="width: 20%;"></th>
-              <td><input style="font-size: 50%"  type="date" id="date_from"></td>
+              <th scope="row"><img src="/static/assets/calendar.png" class="iconData"></th>
+              <td><input style="font-size: 50%"  type="date" name="date_from" value="{{ date_from }}"></td>
           </tr>
           <tr>
-              <td colspan="2" style="width: 25%; vertical-align: middle;">
+              <td colspan="2" style="width: 25%; vertical-align: middle; text-align: center;">
                   <button type="submit" class="btn btn-primary btn-lg btn-block buttonApp">Save</button>
               </td>
           </tr>                      
