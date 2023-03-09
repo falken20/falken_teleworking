@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
+from datetime import date
 
 from falken_teleworking import db
 from falken_teleworking.models import User
@@ -63,7 +64,8 @@ class BaseTestCase(unittest.TestCase):
     @staticmethod
     def create_user(mock_user):
         new_user = User(email=mock_user['email'], name=mock_user['name'],
-                    password=generate_password_hash(mock_user['password'], method='sha256'))
+                    password=generate_password_hash(mock_user['password'], method='sha256'),
+                    date_from=date.today())
         db.session.add(new_user)
         db.session.commit()
         return new_user

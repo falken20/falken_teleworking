@@ -1,7 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Welcome, {{ name }}!
-</h1>
+
+<table class="table table-danger table-striped" style="width: 90%">
+  <thead>
+  </thead>
+  <tbody>
+      <form method="POST">
+          <tr>
+            <th scope="row"><img src="/static/assets/user.png" class="iconData"></th>
+            <td title="User" class="appData">{{ name }}</td>
+          </tr>
+          <tr>
+              <th scope="row"><img src="/static/assets/calendar.png" class="iconData"></th>
+              <td><input style="font-size: 50%"  type="date" name="date_from" value="{{ date_from }}"></td>
+          </tr>
+          <tr>
+              <td colspan="2" style="width: 25%; vertical-align: middle; text-align: center;">
+                  <button type="submit" class="btn btn-primary btn-lg btn-block buttonApp">Save</button>
+              </td>
+          </tr>                      
+      </form>
+  </tbody>
+</table>
+
 {% endblock %}

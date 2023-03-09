@@ -1,13 +1,13 @@
 # by Richi Rod AKA @richionline / falken20
 # ./falken_teleworking/main.py
 
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from datetime import datetime
 from functools import lru_cache
 
 from .logger import Log
-from .models import Teleworking
+from .models import Teleworking, User
 from .config import get_settings
 
 main = Blueprint('main', __name__)
@@ -21,13 +21,16 @@ previous_cache = datetime.now()
 def index():
     Log.info("Access to home page")
     Log.debug(f"Current user: {current_user.name}")
+    Log.debug(f"Date to calculate period percent: {current_user.date_from}")
 
     if request.method == "POST" and request.form.get('work_home') is not None:
         Log.info("Saving the day info...")
         Teleworking.create_day(request.form, current_user.id)
 
-    count_home = Teleworking.get_count_days(True, current_user.id)
-    count_office = Teleworking.get_count_days(False, current_user.id)
+    count_home = Teleworking.get_count_days(
+        True, current_user.id, current_user.date_from)
+    count_office = Teleworking.get_count_days(
+        False, current_user.id, current_user.date_from)
     if (count_home + count_office != 0):
         percent = round(count_office / (count_home + count_office) * 100, 2)
     else:
@@ -49,13 +52,24 @@ def index():
                            percent=percent,
                            checked_home=checked_home,
                            checked_office=checked_office,
+                           date_from=current_user.date_from,
                            user=current_user.name)
 
 
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', name=current_user.name)
+    date_from = current_user.date_from
+    return render_template('profile.html', name=current_user.name, date_from=date_from)
+
+
+@main.route('/profile', methods=['POST'])
+@login_required
+def profile_post():
+    Log.info("Saving profile data...")
+    date_from = request.form.get('date_from')
+    User.update_user_date(current_user.id, date_from)
+    return redirect(url_for('main.index'))
 
 
 @main.route('/calendar')
@@ -67,9 +81,9 @@ def calendar():
     return render_template('calendar.html', all_dates=all_dates)
 
 
-@lru_cache(maxsize=1)
+@lru_cache(maxsize=0)
 def calendar_data(user_id):
-    return Teleworking.get_all_dates(user_id)
+    return Teleworking.get_all_dates(user_id, current_user.date_from)
 
 
 def check_cache(minutes: int = 60):
@@ -79,8 +93,10 @@ def check_cache(minutes: int = 60):
     # maxsize is the size of the cache as you defined it with the maxsize attribute of the decorator.
     # currsize  is the current size of the cache.
     global previous_cache
-    Log.info(f"CACHE calendar_data(): {calendar_data.cache_info()}", style="yelloW")
-    Log.info(f"CACHE get_settings(): {get_settings.cache_info()}", style="yelloW")
+    Log.info(
+        f"CACHE calendar_data(): {calendar_data.cache_info()}", style="yelloW")
+    Log.info(
+        f"CACHE get_settings(): {get_settings.cache_info()}", style="yelloW")
     Log.info(
         f"Checking expiration time for cache({minutes=})...", style="yellow")
     Log.debug(f"Previous cache: {previous_cache}", style="yellow")
