@@ -37,6 +37,10 @@ class Settings(BaseSettings):
     env_name: str = "Local"
     base_url: str = "http://localhost:5000"
     # db_url: str = "sqlite:///./shortener.db"
+    ENV_PRO: str = "N"
+    LEVEL_LOG: list = []
+    DATABASE_URL: str = ""
+    DB_SQLITE_URL: str = ""
 
     class Config:
         # When you add the Config class with the path to your env_file to your
