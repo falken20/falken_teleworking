@@ -81,6 +81,15 @@ def calendar():
     return render_template('calendar.html', all_dates=all_dates)
 
 
+@main.route('/search')
+@login_required
+def search():
+    # Get all date fields for fullfill calendar
+    all_dates = calendar_data(current_user.id)
+    Log.debug(all_dates)
+    return render_template('search.html', all_dates=all_dates)
+
+
 @lru_cache(maxsize=0)
 def calendar_data(user_id):
     return Teleworking.get_all_dates(user_id, current_user.date_from)
