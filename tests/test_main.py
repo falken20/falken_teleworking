@@ -15,7 +15,7 @@ class TestMain(BaseTestCase):
     def test_home(self):
         BaseTestCase.login_http(self)
         response = self.client.get("/")
-        self.assertEqual(200, response.status_code)        
+        self.assertEqual(200, response.status_code)
         response = self.client.get("/home")
         self.assertEqual(200, response.status_code)
 
@@ -36,7 +36,7 @@ class TestMain(BaseTestCase):
     def test_calendar(self):
         BaseTestCase.login_http(self)
         response = self.client.get("/calendar")
-        self.assertEqual(200, response.status_code)        
+        self.assertEqual(200, response.status_code)
 
     def test_count_days_home(self):
         BaseTestCase.login_http(self)
@@ -56,10 +56,19 @@ class TestMain(BaseTestCase):
 
     def test_profile_post(self):
         BaseTestCase.login_http(self)
-        response = self.client.post('/profile', data=dict(date_from=date.today()))
+        response = self.client.post(
+            '/profile', data=dict(date_from=date.today()))
         self.assertEqual(200, response.status_code)
 
     def test_search(self):
         BaseTestCase.login_http(self)
         response = self.client.get("/search")
-        self.assertEqual(200, response.status_code)     
+        self.assertEqual(200, response.status_code)
+
+    def test_search_post(self):
+        BaseTestCase.login_http(self)
+        response = self.client.post("/search", data=dict(
+            date_to=date.today(),
+            date_from=date.today()
+        ))
+        self.assertEqual(200, response.status_code)
