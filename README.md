@@ -4,7 +4,7 @@
 <img src="./static/assets/logo_app.png" alt="drawing" width="400"/>
 <a href="https://richionline-portfolio.nw.r.appspot.com"><img src="https://richionline-portfolio.nw.r.appspot.com/static/assets/falken_logo.ico" width=40 alt="Personal Portfolio web"></a>
 
-![Version](https://img.shields.io/badge/version-1.6.0-blue) ![GitHub language count](https://img.shields.io/github/languages/count/falken20/falken_teleworking) ![GitHub Top languaje](https://img.shields.io/github/languages/top/falken20/falken_teleworking) ![Test coverage](https://img.shields.io/badge/test%20coverage-93%25-green) ![GitHub License](https://img.shields.io/github/license/falken20/falken_teleworking)[![Python used version](https://img.shields.io/static/v1?label=python&message=3.8&color=blue&logo=python&logoColor=white)
+![Version](https://img.shields.io/badge/version-1.7.0-blue) ![GitHub language count](https://img.shields.io/github/languages/count/falken20/falken_teleworking) ![GitHub Top languaje](https://img.shields.io/github/languages/top/falken20/falken_teleworking) ![Test coverage](https://img.shields.io/badge/test%20coverage-94%25-green) ![GitHub License](https://img.shields.io/github/license/falken20/falken_teleworking)[![Python used version](https://img.shields.io/static/v1?label=python&message=3.8&color=blue&logo=python&logoColor=white)
 
   
 [![Richi web](https://img.shields.io/badge/web-richionline-blue)](https://richionline-portfolio.nw.r.appspot.com) [![Twitter](https://img.shields.io/twitter/follow/richionline?style=social)](https://twitter.com/richionline)
@@ -56,6 +56,7 @@ DB_SQLITE_NAME=primazon.db
 ---
 
 ##### Versions
+- 1.7.0 New functionality to search between two dates
 - 1.6.0 Date to calculate period percent
 - 1.5.0 Save data with logged user
 - 1.4.0 Adding new calendar component

@@ -59,3 +59,7 @@ class TestMain(BaseTestCase):
         response = self.client.post('/profile', data=dict(date_from=date.today()))
         self.assertEqual(200, response.status_code)
 
+    def test_search(self):
+        BaseTestCase.login_http(self)
+        response = self.client.get("/search")
+        self.assertEqual(200, response.status_code)     
