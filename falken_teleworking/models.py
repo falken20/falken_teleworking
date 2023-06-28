@@ -56,13 +56,14 @@ class Teleworking(db.Model):
                 .order_by(Teleworking.work_date.asc()).all())
 
     @staticmethod
-    def get_count_days(work_home, user_id: int, date_from: date = date(date.today().year, 1, 1)):
+    def get_count_days(work_home, user_id: int, date_from: date = date(date.today().year, 1, 1), date_to: date = date.today()):
         """ Return count days working at home (true) or office (false) from date_from"""
         Log.info(f"Getting count days work_home={work_home} from {date_from}")
         # return len(Teleworking.query.filter_by(work_user=user_id, work_home=work_home).all())
         return len(Teleworking.query.filter(Teleworking.work_user == user_id,
                                             Teleworking.work_home == work_home,
-                                            Teleworking.work_date >= date_from).all())
+                                            Teleworking.work_date >= date_from,
+                                            Teleworking.work_date <= date_to).all())
 
     @staticmethod
     def get_day(work_date, user_id: int):
