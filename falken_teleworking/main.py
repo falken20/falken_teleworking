@@ -59,6 +59,7 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
+    Log.info("Access to profile page")
     date_from = current_user.date_from
     return render_template('profile.html', name=current_user.name, date_from=date_from)
 
@@ -75,10 +76,43 @@ def profile_post():
 @main.route('/calendar')
 @login_required
 def calendar():
+    Log.info("Access to calendar page")
     # Get all date fields for fullfill calendar
     all_dates = calendar_data(current_user.id)
     Log.debug(all_dates)
     return render_template('calendar.html', all_dates=all_dates)
+
+
+@main.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+    Log.info("Access to search page")
+
+    date_from = current_user.date_from
+    date_to = datetime.now().date()
+
+    if request.method == "POST":
+        Log.info("Getting data from form to search...")
+        date_from = request.form.get('date_from')
+        date_to = request.form.get('date_to')
+
+    count_home = Teleworking.get_count_days(
+        True, current_user.id, date_from, date_to)
+    count_office = Teleworking.get_count_days(
+        False, current_user.id, date_from, date_to)
+    if (count_home + count_office != 0):
+        percent = round(count_office / (count_home + count_office) * 100, 2)
+    else:
+        percent = 0
+
+    return render_template('search.html',
+                           name=current_user.name,
+                           date_from=date_from,
+                           date_to=date_to,
+                           count_home=count_home,
+                           count_office=count_office,
+                           percent=percent
+                           )
 
 
 @lru_cache(maxsize=0)

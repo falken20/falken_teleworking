@@ -25,7 +25,7 @@ def create_app():
     app = Flask(__name__, template_folder="../templates",
                 static_folder="../static")
 
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key')
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-special-secret-key')
     app.config['TEMPLATE_AUTO_RELOAD'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'].replace(
         "://", "ql://", 1)
