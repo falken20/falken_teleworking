@@ -10,7 +10,7 @@ entrypoint: gunicorn -b:$PORT 'falken_teleworking:create_app()' # Beacause now i
 env_variables:
   FALKEN_VERSION: "1.0.0"
   ENV_PRO: "Y"
-  LEVEL_LOG: "INFO, WARNING, ERROR"
+  LEVEL_LOG: ["INFO, WARNING, ERROR"]
   
 handlers:
 - url: /static
