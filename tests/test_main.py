@@ -1,5 +1,5 @@
 import unittest
-from datetime import date
+from datetime import date, datetime
 
 from .basetest import BaseTestCase
 from falken_teleworking.models import Teleworking
@@ -56,8 +56,8 @@ class TestMain(BaseTestCase):
 
     def test_profile_post(self):
         BaseTestCase.login_http(self)
-        response = self.client.post(
-            '/profile', data=dict(date_from=date.today()))
+        date_from = date.today()
+        response = self.client.post('/profile', data=dict(date_from=date_from))
         self.assertEqual(200, response.status_code)
 
     def test_search(self):
