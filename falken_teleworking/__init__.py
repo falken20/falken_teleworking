@@ -15,7 +15,9 @@ console.rule("Falken Teleworking")
 # Set environment vars
 load_dotenv(find_dotenv())
 settings = get_settings()
-Log.info(f"Settings: {settings}")
+Log.info(f"Settings: \n env_name: {settings.env_name}\
+         \n ENV_PRO: {settings.ENV_PRO}\
+         \n LEVEL_LOG: {settings.LEVEL_LOG}")
 
 # Cache info
 check_cache()

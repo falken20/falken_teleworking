@@ -79,10 +79,12 @@ class Teleworking(db.Model):
     def create_day(values, user_id: int):
         logging.info("Saving info day in DB...")
         # Delete the day if exists
-        Teleworking.delete_day(datetime.now().date(), user_id)
+        # Teleworking.delete_day(datetime.now().date(), user_id)
+        Teleworking.delete_day(values.get('date'), user_id)
 
         new_teleworking = Teleworking(
-            work_date=datetime.now().date(),
+            # work_date=datetime.now().date(),
+            work_date=values.get('date'),
             work_home=True if values.get('work_home') == "True" else False,
             work_user=user_id,
         )

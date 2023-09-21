@@ -30,6 +30,10 @@
                 <td scope="col" class="todayDate" colspan="2">{{ day }}</td>
             </tr>  
             <tr>
+                <th scope="row"><img src="/static/assets/calendar.png" class="iconData"></th>
+                <td><input style="font-size: 50%"  type="date" name="date" value="{{ day }}"></td>
+            </tr>
+            <tr>
                 <td scope="col" style="width: 25%; text-align: left !important;">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input radioButtonApp" type="radio" name="work_home" id="placeWork1" value="True" {{ checked_home }}>
