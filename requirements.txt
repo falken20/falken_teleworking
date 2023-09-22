@@ -4,6 +4,7 @@ rich>=11.2.0
 requests
 gunicorn  # Neccesary for app.yaml
 pydantic # Neccesary for config.py
+pydantic-settings
 flask-sqlalchemy
 psycopg2-binary
 flask-login

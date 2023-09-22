@@ -2,7 +2,10 @@
 # ./falken_teleworking/config.py
 
 # Library that uses type annotation to validate data and manage settings.
-from pydantic import BaseSettings
+# from pydantic import BaseSettings # Old version
+from pydantic.v1 import BaseSettings
+# from pydantic_settings import BaseSettings # New version
+
 # Library to cache the data
 from functools import lru_cache
 

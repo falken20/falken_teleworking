@@ -26,12 +26,14 @@
             <td title="Percent" colspan="2" class="appData">{{ percent }}%</td>
         </tr>
         <form method="POST">
+            <!--
             <tr>
                 <td scope="col" class="todayDate" colspan="2">{{ day }}</td>
             </tr>  
+            -->
             <tr>
                 <th scope="row"><img src="/static/assets/calendar.png" class="iconData"></th>
-                <td><input style="font-size: 50%"  type="date" name="date" value="{{ day }}"></td>
+                <td><input style="font-size: 50% !important; color: red !important;"  type="date" name="date" value="{{ day }}" class="appData"></td>
             </tr>
             <tr>
                 <td scope="col" style="width: 25%; text-align: left !important;">
