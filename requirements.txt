@@ -8,3 +8,4 @@ pydantic-settings
 flask-sqlalchemy
 psycopg2-binary
 flask-login
+Werkzeug==2.3.7
