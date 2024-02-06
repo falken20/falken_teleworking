@@ -48,7 +48,7 @@ coverage run -m pytest -v && coverage html --omit=*/venv/*,*/tests/*
 ENV_PRO=N
 LEVEL_LOG=["DEBUG", "INFO", "WARNING", "ERROR"]
 SECRET_KEY= 
-DATABASE_URL=postgres://YYYY:YYYY@db.rhsrwnntcqvjpgamytve.supabase.co:6543/postgres
+DATABASE_URL=
 DB_SQLITE_URL=sqlite://
 DB_SQLITE_NAME=primazon.db
 ```
