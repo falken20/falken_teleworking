@@ -67,8 +67,14 @@ def profile():
 @main.route('/profile', methods=['POST'])
 @login_required
 def profile_post():
+    from datetime import datetime
     Log.info("Saving profile data...")
-    date_from = request.form.get('date_from')
+    date_from_str = request.form.get('date_from')
+    # Convert string to date object if it's a string
+    if isinstance(date_from_str, str):
+        date_from = datetime.strptime(date_from_str, '%Y-%m-%d').date()
+    else:
+        date_from = date_from_str
     User.update_user_date(current_user.id, date_from)
     return redirect(url_for('main.index'))
 

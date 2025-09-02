@@ -76,14 +76,16 @@ class Teleworking(db.Model):
 
     @staticmethod
     def create_day(values, user_id: int):
+        from datetime import datetime
         logging.info("Saving info day in DB...")
+        # Use provided date or current date if not provided
+        work_date = values.get('date') or datetime.now().date()
+
         # Delete the day if exists
-        # Teleworking.delete_day(datetime.now().date(), user_id)
-        Teleworking.delete_day(values.get('date'), user_id)
+        Teleworking.delete_day(work_date, user_id)
 
         new_teleworking = Teleworking(
-            # work_date=datetime.now().date(),
-            work_date=values.get('date'),
+            work_date=work_date,
             work_home=True if values.get('work_home') == "True" else False,
             work_user=user_id,
         )

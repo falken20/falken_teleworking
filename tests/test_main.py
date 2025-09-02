@@ -58,7 +58,7 @@ class TestMain(BaseTestCase):
         BaseTestCase.login_http(self)
         date_from = date.today()
         response = self.client.post('/profile', data=dict(date_from=date_from))
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(302, response.status_code)  # Should redirect after POST
 
     def test_search(self):
         BaseTestCase.login_http(self)

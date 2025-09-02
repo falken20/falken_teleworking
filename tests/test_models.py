@@ -8,7 +8,7 @@ from falken_teleworking.models import Teleworking, init_db, User
 from . import basetest
 
 TEST_DATE = date.today()
-TEST_ROW = {"work_day": TEST_DATE, "work_home": "True", "work_user": 1}
+TEST_ROW = {"date": TEST_DATE, "work_home": "True", "work_user": 1}
 
 
 class TestModels(basetest.BaseTestCase):
@@ -30,7 +30,7 @@ class TestModels(basetest.BaseTestCase):
 
     def test_get_day(self):
         Teleworking.create_day(TEST_ROW, user_id=TEST_ROW['work_user'])
-        self.assertEqual(1, Teleworking.get_day(TEST_ROW['work_day'], TEST_ROW['work_user']).work_user)
+        self.assertEqual(1, Teleworking.get_day(TEST_ROW['date'], TEST_ROW['work_user']).work_user)
 
     @patch('sys.stdin', StringIO('N\nN\n'))  # Simulate user input
     def test_init_db(self):
