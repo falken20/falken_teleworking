@@ -9,4 +9,4 @@ flask-sqlalchemy
 psycopg2-binary
 flask-login
 # Werkzeug==2.3.7
-Werkzeug==3.0.6
+Werkzeug==3.1.6
